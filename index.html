@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>o9 | Red FM Walkathon 2026</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { sans: ['Outfit', 'sans-serif'] },
+                    colors: {
+                        primary: '#e6007e',
+                        secondary: '#b30062',
+                        dark: '#111827'
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Horizontal Expansion Effect for Category Cards */
+        .category-container {
+            display: flex;
+            gap: 1rem;
+            height: 450px;
+        }
+
+        .category-card {
+            flex: 1;
+            /* Compressed width */
+            transition: all 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative;
+            overflow: hidden;
+            border-radius: 0;
+            /* Remove rounded corners */
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            flex: 4;
+            /* Expand more clearly */
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: filter 0.6s ease;
+        }
+
+        .category-card:not(:hover) img {
+            filter: brightness(0.6) opacity(0.8);
+            mix-blend-mode: multiply;
+            background-color: rgba(43, 11, 61, 0.8);
+            /* Dark purple tint */
+        }
+
+
+        .content-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+            color: white;
+            z-index: 10;
+        }
+
+        .vertical-title {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            white-space: nowrap;
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            position: absolute;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            transition: opacity 0.3s;
+        }
+
+        .category-card:hover .vertical-title {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .horizontal-title {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.4s ease 0.1s;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            width: 100%;
+        }
+
+        .category-card:hover .horizontal-title {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .arrow-btn {
+            background-color: white;
+            color: #e6007e;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+            margin-left: 10px;
+        }
+
+        /* Initiatives CSS */
+        .initiatives-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .initiatives-grid {
+                grid-template-columns: 1.5fr 1fr;
+            }
+        }
+
+        .initiative-card {
+            position: relative;
+            overflow: hidden;
+            display: flex;
+        }
+
+        .initiative-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .initiative-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .initiative-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 50%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            padding: 2rem;
+            color: white;
+            pointer-events: none;
+        }
+
+        .initiative-right-col {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            transform: scale(0.95);
+            transition: transform 0.3s ease;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.2s;
+        }
+
+        .close-modal:hover {
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-900 antialiased">
+
+    <nav class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 h-20 flex items-center">
+        <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
+            <div class="flex items-center space-x-4">
+                <img src="./assets/09logo.png" alt="o9 Logo" class="h-10 object-contain">
+                <span class="text-gray-300">|</span>
+                <img src="./assets/redfmlogo.png" alt="Red FM Logo" class="h-12 object-contain">
+                <p>Walkathon 2026</p>
+            </div>
+            <div class="hidden md:flex space-x-8 items-center font-bold text-sm uppercase">
+                <a href="#about" class="hover:text-primary transition">About</a>
+                <a href="#mission" class="hover:text-primary transition">Mission</a>
+                <a href="#categories" class="hover:text-primary transition">Categories</a>
+                <a href="#details" class="hover:text-primary transition">Details</a>
+                <a href="#"
+                    class="bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition">Register
+                    Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="relative h-screen flex items-center justify-center overflow-hidden">
+        <img src="https://images.pexels.com/photos/2168291/pexels-photo-2168291.jpeg"
+            class="absolute inset-0 w-full h-full object-cover" alt="Bright Runners">
+        <!-- Kept a slight gradient overlay so the text remains readable, but removed the solid dark black mask -->
+        <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-transparent to-black/60 z-10"></div>
+
+        <div class="relative z-20 text-center text-white px-4">
+            <h2 class="text-primary font-bold tracking-[0.3em] uppercase mb-4 drop-shadow-md">o9 | Red FM Walkathon 2026
+            </h2>
+            <h1 class="text-6xl md:text-9xl font-black uppercase leading-tight mb-6 drop-shadow-xl"
+                style="letter-spacing: -2px;">Step Forward,<br>Give Back.
+            </h1>
+            <p class="text-2xl md:text-3xl font-light mb-10 max-w-3xl mx-auto drop-shadow-md">Join the flagship global
+                initiative
+                uniting communities to promote health and social impact.</p>
+            <div class="flex flex-col md:flex-row justify-center gap-6">
+                <div class="bg-primary px-8 py-4 rounded-lg shadow-lg">
+                    <span class="block text-4xl font-bold">10th MAY</span>
+                    <span class="text-sm font-semibold uppercase tracking-widest text-white/80">Event Date 2026 </span>
+                </div>
+                <div class="bg-white/20 backdrop-blur-md border border-white/30 px-8 py-4 rounded-lg shadow-lg">
+                    <span class="block text-4xl font-bold">06:00 AM</span>
+                    <span class="text-sm font-semibold uppercase tracking-widest text-white/80">Flag Off </span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="about" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div class="relative">
+                <img src="https://images.pexels.com/photos/5310918/pexels-photo-5310918.jpeg"
+                    class="rounded-2xl shadow-2xl" alt="Group walking">
+                <div class="absolute -bottom-6 -right-6 bg-primary text-white p-8 rounded-2xl hidden md:block max-w-xs">
+                    <p class="italic">"Walk for a Cause. Finish for a Future."</p>
+                </div>
+            </div>
+            <div>
+
+                <h3 class="text-4xl font-extrabold mb-6 uppercase">Event Overview</h3>
+                <div class="w-16 h-1 bg-primary mb-8"></div>
+                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                    The o9 | Red FM Walkathon is more than an in-person event; it is a key chapter of <strong>o9
+                        Walks</strong>—o9’s flagship global initiative.
+                </p>
+                <p class="text-gray-600 text-lg mb-6 leading-relaxed">
+                    Whether we are walking in the streets of Bengaluru or logging steps virtually from Dallas,
+                    Amsterdam, or APAC, every step contributes to making the world a more sustainable place.
+                </p>
+                <ul class="space-y-4 font-semibold text-gray-800">
+                    <li><i class="fa-solid fa-check-circle text-primary mr-2"></i> 10% of your ticket goes to U&I
+                        literacy programs.</li>
+                    <li><i class="fa-solid fa-check-circle text-primary mr-2"></i> Finish the walk & o9 adds ₹500 to the
+                        mission.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="categories" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h3 class="text-5xl md:text-6xl font-extrabold mb-12 uppercase italic text-primary tracking-tight">Race
+                Categories</h3>
+
+            <div class="category-container">
+                <!-- Card 1 -->
+                <div class="category-card" onclick="openModal('3K Run', './assets/3kmap.png')">
+                    <img src="https://images.pexels.com/photos/1578384/pexels-photo-1578384.jpeg" alt="Open 10K">
+                    <div class="content-overlay">
+                        <h4 class="vertical-title">Open 3K</h4>
+                        <div class="horizontal-title">
+                            <h4 class="text-3xl md:text-4xl font-bold">Open 3K</h4>
+                            <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 -->
+                <div class="category-card" onclick="openModal('5K Run', './assets/5k10kmap.png')">
+                    <img src="https://images.pexels.com/photos/1568929/pexels-photo-1568929.jpeg" alt="Majja Run">
+                    <div class="content-overlay">
+                        <h4 class="vertical-title">5k Run</h4>
+                        <div class="horizontal-title">
+                            <h4 class="text-3xl md:text-4xl font-bold">5k Run</h4>
+                            <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 -->
+                <div class="category-card" onclick="openModal('10K Run', './assets/5k10kmap.png')">
+                    <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=600"
+                        alt="Senior Citizens' Run">
+                    <div class="content-overlay">
+                        <h4 class="vertical-title">10k Run</h4>
+                        <div class="horizontal-title">
+                            <h4 class="text-3xl md:text-4xl font-bold">10k Run</h4>
+                            <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+
+
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="py-20 bg-dark text-white">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h3 class="text-3xl font-bold text-primary uppercase mb-8">Our Mission for 2026: AI for Literacy</h3>
+            <p class="text-xl text-gray-300 leading-relaxed mb-12">
+                Through our partnership with the <strong>U&I NGO</strong>, we are providing access to <strong>Amira
+                    Learning</strong>—an AI-powered reading tutor for underserved children.
+            </p>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-6 bg-white/5 rounded-xl">
+                    <i class="fa-solid fa-brain text-4xl text-primary mb-4"></i>
+                    <h5 class="font-bold mb-2">Personalized AI</h5>
+                    <p class="text-sm text-gray-400">Listens to students and provides real-time coaching.</p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-xl border border-primary/30">
+                    <i class="fa-solid fa-bolt text-4xl text-primary mb-4"></i>
+                    <h5 class="font-bold mb-2">1.5 Years Growth</h5>
+                    <p class="text-sm text-gray-400">Proven to accelerate reading growth within a single school year.
+                    </p>
+                </div>
+                <div class="p-6 bg-white/5 rounded-xl">
+                    <i class="fa-solid fa-chart-line text-4xl text-primary mb-4"></i>
+                    <h5 class="font-bold mb-2">Measurable Success</h5>
+                    <p class="text-sm text-gray-400">Baseline assessments help students move toward dream careers.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="initiatives" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <h3 class="text-5xl md:text-6xl font-extrabold mb-4 uppercase italic text-primary tracking-tight">
+                Initiatives</h3>
+            <p class="text-xl text-gray-700 mb-12 max-w-3xl">Every year, we come together to celebrate the different
+                hues that form the essence of Bengaluru, and the transformative power of running.</p>
+
+            <div class="initiatives-grid">
+                <!-- Left tall image -->
+                <div class="initiative-card min-h-[400px] md:min-h-[500px]">
+                    <img src="./assets/gallery1.png" alt="Endendigu Bengaluru">
+                    <div class="initiative-overlay">
+                        <h4 class="text-3xl font-bold"></h4>
+                        <div class="arrow-btn" style="pointer-events: auto; cursor: pointer;"><i
+                                class="fa-solid fa-arrow-up-right"></i></div>
+                    </div>
+                </div>
+                <!-- Right stacked images -->
+                <div class="initiative-right-col">
+                    <div class="initiative-card min-h-[200px] md:min-h-[240px] flex-1">
+                        <img src="./assets/galllery2.png" alt="Green Initiatives">
+                        <div class="initiative-overlay p-6">
+                            <h4 class="text-2xl font-bold"></h4>
+                            <div class="arrow-btn" style="pointer-events: auto; cursor: pointer;"><i
+                                    class="fa-solid fa-arrow-up-right"></i></div>
+                        </div>
+                    </div>
+                    <div class="initiative-card min-h-[200px] md:min-h-[240px] flex-1">
+                        <img src="./assets/gallery3.png" alt="Run In Costume">
+                        <div class="initiative-overlay p-6">
+                            <h4 class="text-2xl font-bold"></h4>
+                            <div class="arrow-btn" style="pointer-events: auto; cursor: pointer;"><i
+                                    class="fa-solid fa-arrow-up-right"></i></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsors" class="py-24 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-5xl mx-auto px-4 text-center">
+            <h3 class="text-5xl font-extrabold uppercase italic text-primary tracking-tight mb-16 text-center">Sponsors
+                & Partners</h3>
+
+            <!-- Title Sponsor -->
+            <div class="mb-12">
+                <h4 class="text-xl font-bold text-gray-800 mb-6">Title Sponsor</h4>
+                <div class="flex justify-center">
+                    <img src="https://placehold.co/400x120/FFFFFF/000000?text=Acme+Corp" alt="Title Sponsor"
+                        class="h-24 object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                </div>
+            </div>
+
+            <hr class="border-gray-300 mb-12">
+
+            <!-- Associate Sponsor -->
+            <div class="mb-12">
+                <h4 class="text-xl font-bold text-gray-800 mb-6">Associate Sponsor</h4>
+                <div class="flex justify-center">
+                    <img src="https://placehold.co/300x100/FFFFFF/000000?text=Global+Tech" alt="Associate Sponsor"
+                        class="h-16 object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                </div>
+            </div>
+
+            <hr class="border-gray-300 mb-12">
+
+            <!-- Partners -->
+            <div>
+                <h4 class="text-xl font-bold text-gray-800 mb-10">Partners</h4>
+                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+                    <!-- Partner 1 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=PowerInc" alt="Powered By"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Powered By</span>
+                    </div>
+                    <!-- Partner 2 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=Sportify"
+                                alt="Sports Goods Partner"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Sports Goods Partner</span>
+                    </div>
+                    <!-- Partner 3 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=AquaLife" alt="Hydration Partner"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Hydration Partner</span>
+                    </div>
+                    <!-- Partner 4 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=ConnectUs"
+                                alt="Social Connect Partner"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Social Connect Partner</span>
+                    </div>
+                    <!-- Partner 5 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=DailyNews" alt="Print Partner"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Print Partner</span>
+                    </div>
+                    <!-- Partner 6 -->
+                    <div class="flex flex-col items-center">
+                        <div
+                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
+                            <img src="https://placehold.co/150x80/FFFFFF/000000?text=SoundFM" alt="Radio Partner"
+                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+                        </div>
+                        <span class="text-sm font-semibold text-gray-600">Radio Partner</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h3 class="text-4xl font-extrabold uppercase mb-4">Why Join Us? </h3>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
+                        <i class="fa-solid fa-music text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Live Entertainment</h5>
+                    <p class="text-sm text-gray-500">Live DJ and Red FM RJs on-site to keep the energy high!
+                    </p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
+                        <i class="fa-solid fa-shirt text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Exclusive Kit</h5>
+                    <p class="text-sm text-gray-500">Event T-shirt, Finisher Medal, and Timed Bib included.
+                    </p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
+                        <i class="fa-solid fa-users text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Network</h5>
+                    <p class="text-sm text-gray-500">Walk alongside leaders, athletes, and change-makers. </p>
+                </div>
+                <div class="text-center group">
+                    <div
+                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
+                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
+                    </div>
+                    <h5 class="font-bold mb-2">Community</h5>
+                    <p class="text-sm text-gray-500">Directly contribute to underserved children's futures. [cite: 24]
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="details" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
+
+            <!-- Event Logistics -->
+            <div class="bg-white p-10 rounded-2xl shadow-lg border-l-8 border-primary">
+                <h4 class="text-2xl font-bold mb-6 uppercase">Event Logistics</h4>
+
+                <div class="space-y-6">
+
+                    <!-- Venue -->
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-location-dot text-primary mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <span class="block font-bold">Venue</span>
+                            <p class="text-gray-600">St. Joseph College Ground, Bangalore</p>
+
+                            <a href="https://maps.google.com/?q=St+Joseph+College+Ground+Bangalore" target="_blank"
+                                class="text-primary text-xs font-bold hover:underline">
+                                OPEN IN GOOGLE MAPS
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Time -->
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-clock text-primary mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <span class="block font-bold">Timings</span>
+                            <p class="text-gray-600">Reporting: 5:30 AM | Flag Off: 6:00 AM</p>
+                        </div>
+                    </div>
+
+                    <!-- Bib -->
+                    <div class="flex items-start">
+                        <i class="fa-solid fa-box-open text-primary mt-1 mr-4 text-xl"></i>
+                        <div>
+                            <span class="block font-bold">Bib Collection</span>
+                            <p class="text-gray-600">Center details to be confirmed via RedFM.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Map + CTA -->
+            <div class="flex flex-col gap-8">
+
+                <!-- Google Map -->
+                <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
+                    <iframe
+                        src="https://maps.google.com/maps?q=St%20Joseph%20College%20Ground%20Bangalore&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        class="w-full h-[320px] border-0" loading="lazy"></iframe>
+                </div>
+
+                <!-- CTA -->
+                <div>
+                    <h3 class="text-4xl font-extrabold mb-6 uppercase">
+                        Ready to Step Forward?
+                    </h3>
+
+                    <p class="text-gray-600 mb-8">
+                        Registration is now open on all major ticketing platforms. Secure your
+                        spot and join the global o9 family.
+                    </p>
+
+                    <a href="#"
+                        class="block bg-primary hover:bg-secondary text-white text-center py-4 rounded-full font-bold shadow-xl transition uppercase tracking-widest">
+                        Book Tickets Now
+                    </a>
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <footer class="bg-dark text-gray-400 py-12">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <div class="flex justify-center items-center space-x-4 mb-6">
+                <img src="./assets/09logo.png" alt="o9 Logo"
+                    class="h-8 object-contain opacity-70 hover:opacity-100 transition">
+                <span class="text-gray-600">|</span>
+                <img src="./assets/redfmlogo.png" alt="Red FM Logo"
+                    class="h-10 object-contain opacity-70 hover:opacity-100 transition">
+            </div>
+            <div class="flex justify-center space-x-6 mb-8 text-xl">
+                <a href="#" class="hover:text-primary"><i class="fa-brands fa-facebook"></i></a>
+                <a href="#" class="hover:text-primary"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-primary"><i class="fa-brands fa-twitter"></i></a>
+            </div>
+            <p class="text-sm">© 2026 o9 Solutions & Red FM. All Rights Reserved.</p>
+            <p class="text-[10px] mt-2 uppercase tracking-widest">Walk for a Cause. Finish for a Future.</p>
+        </div>
+    </footer>
+
+    <!-- Route Map Modal -->
+    <div id="routeModal" class="modal-overlay" onclick="closeModal(event)">
+        <div class="modal-content text-center w-full md:w-[80vw] max-w-5xl" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 id="modalTitle" class="text-3xl font-extrabold uppercase italic text-primary tracking-tight mb-2">Route
+                Map</h3>
+            <p class="text-gray-600 mb-6">Trace the path for your selected category below.</p>
+            <div class="w-full flex justify-center bg-gray-50 p-4 rounded-lg border border-gray-100">
+                <img id="modalImage" src="" alt="Route Map" class="max-w-full max-h-[60vh] object-contain shadow-sm">
+            </div>
+            <div class="mt-8">
+                <a href="#"
+                    class="inline-block bg-primary hover:bg-secondary text-white text-center px-8 py-3 rounded-full font-bold shadow-xl transition uppercase tracking-widest text-sm">
+                    Register For This Category
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openModal(title, imageSrc) {
+            document.getElementById('modalTitle').innerText = title + " Route Map";
+            document.getElementById('modalImage').src = imageSrc;
+            const overlay = document.getElementById('routeModal');
+            overlay.style.display = 'flex';
+            // Slight delay to allow display: flex to apply before transitioning opacity
+            setTimeout(() => {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+            }, 10);
+        }
+
+        function closeModal(event) {
+            // If event is passed, check if the overlay background was clicked, otherwise it was the close button
+            if (event && event.target !== document.getElementById('routeModal')) return;
+
+            const overlay = document.getElementById('routeModal');
+            overlay.classList.remove('active');
+            document.body.style.overflow = ''; // Restore background scrolling
+
+            // Wait for transition to finish before hiding
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+    </script>
+</body>
+
+</html>

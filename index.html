@@ -227,15 +227,15 @@
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-900 antialiased">
+<body class="bg-gray-50 text-gray-900 antialiased overflow-x-hidden">
 
-    <nav class="bg-white/95 backdrop-blur-md shadow-sm fixed w-full z-50 top-0 h-20 flex items-center">
+    <nav class="bg-black/50 backdrop-blur-md border-b border-white/10 fixed w-full z-50 top-0 h-20 flex items-center text-white">
         <div class="max-w-7xl mx-auto px-4 w-full flex justify-between items-center">
             <div class="flex items-center space-x-2 sm:space-x-4">
                 <img src="./assets/09logo.png" alt="o9 Logo" class="h-8 sm:h-10 object-contain">
-                <span class="text-gray-300 hidden sm:inline">|</span>
+                <span class="text-white/50 hidden sm:inline">|</span>
                 <img src="./assets/redfmlogo.png" alt="Red FM Logo" class="h-8 sm:h-12 object-contain">
-                <p class="hidden lg:block font-bold">Walkathon 2026</p>
+                <p class="hidden lg:block font-bold text-white/90">Walkathon 2026</p>
             </div>
             <div class="flex items-center space-x-6">
                 <div class="hidden md:flex space-x-8 items-center font-bold text-sm uppercase">
@@ -243,42 +243,68 @@
                     <a href="#mission" class="hover:text-primary transition">Mission</a>
                     <a href="#categories" class="hover:text-primary transition">Categories</a>
                     <a href="#details" class="hover:text-primary transition">Details</a>
+                    <a href="#faqs" class="hover:text-primary transition">FAQs</a>
+                    <a href="#contact" class="hover:text-primary transition">Contact</a>
                 </div>
-                <a href="#"
+                <a href="#details"
                     class="bg-primary hover:bg-secondary text-white px-5 py-2 md:px-8 md:py-3 rounded-full shadow-lg transition text-xs sm:text-sm font-bold uppercase whitespace-nowrap">Register
                     Now</a>
             </div>
         </div>
     </nav>
 
-    <header class="relative h-screen flex items-center justify-center overflow-hidden">
-        <img src="./assets/hero1.png" class="absolute inset-0 w-full h-full object-cover" alt="Bright Runners">
+    <header class="relative min-h-screen pt-24 pb-16 flex items-center justify-center overflow-hidden">
+      <picture>
+  <source media="(max-width: 768px)" srcset="./assets/hero.png">
+  <img src="./assets/hero1.png" class="absolute inset-0 w-full h-full object-cover">
+</picture>
         <!-- Overlay to ensure text readability -->
         <div class="absolute inset-0 bg-black/40 z-10"></div>
 
         <div class="relative z-20 text-center text-white px-4">
-            <h2 class="text-primary font-bold tracking-[0.3em] uppercase mb-4 drop-shadow-md">o9 | Red FM Walkathon 2026
-            </h2>
-            <h1 class="text-6xl md:text-8xl font-black uppercase leading-tight mb-6 drop-shadow-xl"
-                style="letter-spacing: -2px;">Step Forward,<br>Give Back.
-            </h1>
-            <p class="text-2xl md:text-3xl font-light mb-10 max-w-3xl mx-auto drop-shadow-md">Join the flagship global
-                initiative
-                uniting communities to promote health and social impact.</p>
-            <div class="flex flex-col md:flex-row justify-center gap-6">
-                <div class="bg-primary px-8 py-4 rounded-lg shadow-lg">
-                    <span class="block text-2xl font-bold">10th MAY</span>
-                    <span class="text-sm font-semibold uppercase tracking-widest text-white/80">Event Date 2026 </span>
-                </div>
-                <div class="bg-white/20 backdrop-blur-md border border-white/30 px-8 py-4 rounded-lg shadow-lg">
-                    <span class="block text-2xl font-bold">06:00 AM</span>
-                    <span class="text-sm font-semibold uppercase tracking-widest text-white/80">Flag Off </span>
-                </div>
+            <h2 class="text-primary font-bold tracking-[0.3em] uppercase mb-3 drop-shadow-md">o9 | Red FM presents</h2>
+            <h1 class="text-5xl md:text-7xl font-black uppercase leading-tight mb-4 drop-shadow-xl"
+                style="letter-spacing: -1px;">Bengaluru Walkathon 2026</h1>
+            <p class="text-xl md:text-2xl font-semibold mb-6 max-w-4xl mx-auto drop-shadow-md">
+                Walk for Health & Literacy | 3K • 6K • 10K
+            </p>
+
+            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
+               
+                  
+                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                    <i class="fa-solid fa-location-dot text-primary text-xl mt-1"></i>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest text-white/70">Where</span>
+                        <span class="font-semibold">St. Joseph’s Indian Institute Grounds</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                    <i class="fa-solid fa-calendar-days text-primary text-xl mt-1"></i>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest text-white/70">When</span>
+                        <span class="font-semibold">10 May 2026 • 6:00 AM</span>
+                    </div>
+                </li>
+                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                    <i class="fa-solid fa-hand-holding-heart text-primary text-xl mt-1"></i>
+                    <div>
+                        <span class="block text-xs uppercase tracking-widest text-white/70">Why</span>
+                        <span class="font-semibold">Every finisher adds ₹500 to literacy</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="mt-8">
+                <a href="#details"
+                    class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition text-sm font-bold uppercase tracking-widest">
+                    Join the Movement
+                </a>
             </div>
         </div>
     </header>
 
-    <section id="about" class="py-24 bg-white">
+    <section id="about" class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="relative">
                 <img src="https://images.pexels.com/photos/5310918/pexels-photo-5310918.jpeg"
@@ -308,7 +334,7 @@
             </div>
         </div>
     </section>
-    <section id="countdown-section" class="relative py-24 bg-fixed bg-center bg-cover"
+    <section id="countdown-section" class="relative py-16 md:py-24 bg-fixed bg-center bg-cover"
         style="background-image: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?auto=format&fit=crop&w=1920&q=80');">
         <!-- Overlay -->
         <div class="absolute inset-0 bg-black/60"></div>
@@ -321,34 +347,34 @@
             <!-- Glassmorphism Container -->
             <div
                 class="bg-white/10 backdrop-blur-md border border-white/20 p-6 md:p-12 rounded-3xl shadow-[0_8px_32px_0_rgba(0,0,0,0.3)] inline-block">
-                <div class="flex justify-center gap-3 md:gap-10 text-white" id="countdown">
+                <div class="flex flex-wrap justify-center gap-2 sm:gap-3 md:gap-10 text-white" id="countdown">
                     <!-- Days -->
-                    <div class="flex flex-col items-center w-16 md:w-24">
-                        <span class="text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
+                    <div class="flex flex-col items-center w-14 sm:w-16 md:w-24">
+                        <span class="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
                             id="days">00</span>
                         <span
                             class="text-xs md:text-sm font-semibold uppercase tracking-widest text-primary mt-2">Days</span>
                     </div>
-                    <span class="text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
+                    <span class="text-3xl sm:text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
                     <!-- Hours -->
-                    <div class="flex flex-col items-center w-16 md:w-24">
-                        <span class="text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
+                    <div class="flex flex-col items-center w-14 sm:w-16 md:w-24">
+                        <span class="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
                             id="hours">00</span>
                         <span
                             class="text-xs md:text-sm font-semibold uppercase tracking-widest text-primary mt-2">Hours</span>
                     </div>
-                    <span class="text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
+                    <span class="text-3xl sm:text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
                     <!-- Minutes -->
-                    <div class="flex flex-col items-center w-16 md:w-24">
-                        <span class="text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
+                    <div class="flex flex-col items-center w-14 sm:w-16 md:w-24">
+                        <span class="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
                             id="minutes">00</span>
                         <span
                             class="text-xs md:text-sm font-semibold uppercase tracking-widest text-primary mt-2">Mins</span>
                     </div>
-                    <span class="text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
+                    <span class="text-3xl sm:text-4xl md:text-7xl font-black text-white/50 self-start">:</span>
                     <!-- Seconds -->
-                    <div class="flex flex-col items-center w-16 md:w-24">
-                        <span class="text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
+                    <div class="flex flex-col items-center w-14 sm:w-16 md:w-24">
+                        <span class="text-3xl sm:text-4xl md:text-7xl font-black tracking-tighter drop-shadow-lg"
                             id="seconds">00</span>
                         <span
                             class="text-xs md:text-sm font-semibold uppercase tracking-widest text-primary mt-2">Secs</span>
@@ -364,42 +390,57 @@
 
     <section id="categories" class="py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <h3 class="text-5xl md:text-6xl font-extrabold mb-12 uppercase italic text-primary tracking-tight">Race
+            <h3 class="text-5xl md:text-6xl font-extrabold mb-6 uppercase italic text-primary tracking-tight">Walk
                 Categories</h3>
+            <ul class="text-gray-700 mb-12 max-w-3xl space-y-2">
+                <li><span class="font-bold text-gray-900">3K – Fun Walk</span> — Families & beginners</li>
+                <li><span class="font-bold text-gray-900">6K – Fitness Walk</span> — Steady pace for regular walkers
+                </li>
+                <li><span class="font-bold text-gray-900">10K – Challenge Walk</span> — Push your limits</li>
+            </ul>
 
             <div class="category-container">
                 <!-- Card 1 -->
-                <div class="category-card" onclick="openModal('3K Run', './assets/3kmap.png')">
-                    <img src="https://images.pexels.com/photos/1578384/pexels-photo-1578384.jpeg" alt="Open 10K">
+                <div class="category-card" onclick="openModal('3K Fun Walk', './assets/3kmap.png')">
+                    <img src="https://images.pexels.com/photos/1578384/pexels-photo-1578384.jpeg" alt="3K Fun Walk">
                     <div class="content-overlay">
-                        <h4 class="vertical-title">3K Walk</h4>
+                        <h4 class="vertical-title">3K Fun Walk</h4>
                         <div class="horizontal-title">
-                            <h4 class="text-3xl md:text-4xl font-bold">3K Walk</h4>
+                            <div>
+                                <h4 class="text-3xl md:text-4xl font-bold">3K Fun Walk</h4>
+                                <p class="text-sm text-white/90">Families & beginners</p>
+                            </div>
                             <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="category-card" onclick="openModal('5K Run', './assets/5k10kmap.png')">
-                    <img src="https://images.pexels.com/photos/1568929/pexels-photo-1568929.jpeg" alt="Majja Run">
+                <div class="category-card" onclick="openModal('6K Fitness Walk', './assets/5k10kmap.png')">
+                    <img src="https://images.pexels.com/photos/1568929/pexels-photo-1568929.jpeg" alt="6K Fitness Walk">
                     <div class="content-overlay">
-                        <h4 class="vertical-title">5k Walk</h4>
+                        <h4 class="vertical-title">6K Fitness Walk</h4>
                         <div class="horizontal-title">
-                            <h4 class="text-3xl md:text-4xl font-bold">5k Walk</h4>
+                            <div>
+                                <h4 class="text-3xl md:text-4xl font-bold">6K Fitness Walk</h4>
+                                <p class="text-sm text-white/90">Steady pace, strong energy</p>
+                            </div>
                             <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="category-card" onclick="openModal('10K Run', './assets/5k10kmap.png')">
+                <div class="category-card" onclick="openModal('9K Challenge Walk', './assets/5k10kmap.png')">
                     <img src="https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?auto=format&fit=crop&w=600"
-                        alt="Senior Citizens' Run">
+                        alt="9K Challenge Walk">
                     <div class="content-overlay">
-                        <h4 class="vertical-title">10k Walk</h4>
+                        <h4 class="vertical-title">10K Challenge Walk</h4>
                         <div class="horizontal-title">
-                            <h4 class="text-3xl md:text-4xl font-bold">10k Walk</h4>
+                            <div>
+                                <h4 class="text-3xl md:text-4xl font-bold">10K Challenge Walk</h4>
+                                <p class="text-sm text-white/90">For seasoned walkers</p>
+                            </div>
                             <div class="arrow-btn"><i class="fa-solid fa-arrow-up-right"></i></div>
                         </div>
                     </div>
@@ -412,10 +453,57 @@
         </div>
     </section>
 
-    <section id="mission" class="py-20 bg-dark text-white">
+    <section id="full-route" class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h3 class="text-4xl md:text-5xl font-extrabold uppercase mb-6 text-primary">Complete Route Map</h3>
+            <p class="text-gray-700 mb-10 max-w-3xl mx-auto">See the full route overview before you pick your walk
+                category.</p>
+            <div class="bg-white p-4 md:p-8 rounded-2xl shadow-lg border border-gray-100">
+                <img src="./assets/completeroadmap.png" alt="Complete Route Map"
+                    class="w-full h-auto object-contain rounded-xl">
+            </div>
+        </div>
+    </section>
+
+    <section id="mission" class="py-16 md:py-20 bg-dark text-white">
         <div class="max-w-5xl mx-auto px-4 text-center">
-            <h3 class="text-3xl font-bold text-primary uppercase mb-8">Our Mission for 2026: AI for Literacy</h3>
-            <p class="text-xl text-gray-300 leading-relaxed mb-12">
+            <h3 class="text-3xl font-bold text-primary uppercase mb-6">Mission</h3>
+            <p class="text-xl text-gray-300 leading-relaxed mb-10">
+                Promoting fitness, community wellness, and active lifestyles through a citywide walkathon that brings
+                together families, corporates, and fitness enthusiasts.
+            </p>
+
+            <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
+                <li class="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-heart-pulse text-primary text-2xl mt-1"></i>
+                        <div>
+                            <p class="font-bold">10% of every ticket</p>
+                            <p class="text-sm text-gray-400">Supports U&I literacy programs.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-hand-holding-dollar text-primary text-2xl mt-1"></i>
+                        <div>
+                            <p class="font-bold">₹500 per finisher</p>
+                            <p class="text-sm text-gray-400">o9 contributes more with every completed walk.</p>
+                        </div>
+                    </div>
+                </li>
+                <li class="bg-white/5 border border-white/10 rounded-xl p-6">
+                    <div class="flex items-start gap-3">
+                        <i class="fa-solid fa-people-group text-primary text-2xl mt-1"></i>
+                        <div>
+                            <p class="font-bold">2000+ walkers expected</p>
+                            <p class="text-sm text-gray-400">A citywide movement for health and literacy.</p>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+
+            <p class="text-lg text-gray-300 leading-relaxed mb-10">
                 Through our partnership with the <strong>U&I NGO</strong>, we are providing access to <strong>Amira
                     Learning</strong>—an AI-powered reading tutor for underserved children.
             </p>
@@ -434,72 +522,84 @@
                 <div class="p-6 bg-white/5 rounded-xl">
                     <i class="fa-solid fa-chart-line text-4xl text-primary mb-4"></i>
                     <h5 class="font-bold mb-2">Measurable Success</h5>
-                    <p class="text-sm text-gray-400">Baseline assessments help students move toward dream careers.
-                    </p>
+                    <p class="text-sm text-gray-400">Baseline assessments help students move toward dream careers.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="initiatives" class="py-24 bg-white">
+    <section id="initiatives" class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <h3 class="text-5xl md:text-6xl font-extrabold mb-4 uppercase italic text-primary tracking-tight">
                 Glimpses</h3>
-            <p class="text-xl text-gray-700 mb-12 max-w-3xl">Every year, we come together to celebrate the different
-                hues that form the essence of Bengaluru, and the transformative power of running.</p>
+            <p class="text-xl text-gray-700 mb-12 max-w-3xl">
+Every year, over 2000+ participants come together to celebrate the different hues that form the essence of Bengaluru and the transformative power of walking.
+</p>
 
-            <div class="initiatives-grid">
-                <!-- Left tall image -->
-                <div class="initiative-card min-h-[400px] md:min-h-[500px]">
-                    <img src="./assets/gallery1.png" alt="Endendigu Bengaluru">
-                    <div class="initiative-overlay">
 
-                    </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="initiative-card min-h-[300px] md:min-h-[520px]">
+                    <img src="./assets/gallery1.png" alt="Endendigu Bengaluru" class="w-full h-full object-cover">
+                    <div class="initiative-overlay p-6"></div>
                 </div>
-                <!-- Right stacked images -->
-                <div class="initiative-right-col">
-                    <div class="initiative-card min-h-[200px] md:min-h-[240px] flex-1">
-                        <img src="./assets/gallery7.png" alt="Green Initiatives">
-                        <div class="initiative-overlay p-6">
-
-                        </div>
+                <div class="grid grid-cols-1 gap-6">
+                    <div class="initiative-card min-h-[220px] md:min-h-[240px]">
+                        <img src="./assets/gallery4.png" alt="Gallery 4" class="w-full h-full object-cover">
+                        <div class="initiative-overlay p-6"></div>
                     </div>
-                    <div class="initiative-card min-h-[200px] md:min-h-[240px] flex-1">
-                        <img src="./assets/gallery3.png" alt="Run In Costume">
-                        <div class="initiative-overlay p-6">
-
-                        </div>
+                    <div class="initiative-card min-h-[220px] md:min-h-[240px]">
+                        <img src="./assets/sumba.jpg" alt="Gallery 8" class="w-full h-full object-cover">
+                        <div class="initiative-overlay p-6"></div>
                     </div>
                 </div>
             </div>
 
-            <!-- Additional Gallery Images -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
-                <div class="initiative-card min-h-[250px] md:min-h-[300px]">
-                    <img src="./assets/gallery4.png" alt="Gallery 4" class="w-full h-full object-cover">
-                    <div class="initiative-overlay p-6"></div>
-                </div>
-
-                <div class="initiative-card min-h-[250px] md:min-h-[300px]">
-                    <img src="./assets/gallery6.png" alt="Gallery 6" class="w-full h-full object-cover">
-                    <div class="initiative-overlay p-6"></div>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-                <div class="initiative-card min-h-[250px] md:min-h-[400px]">
-                    <img src="./assets/galllery2.png" alt="Gallery 7" class="w-full h-full object-cover">
-                    <div class="initiative-overlay p-6"></div>
-                </div>
-                <div class="initiative-card min-h-[250px] md:min-h-[400px]">
-                    <img src="./assets/gallery8.png" alt="Gallery 8" class="w-full h-full object-cover">
-                    <div class="initiative-overlay p-6"></div>
-                </div>
+            <div class="mt-12 text-center">
+                <p class="text-gray-700 mb-6">Feel the energy? Bring your crew and be part of the 2026 movement.</p>
+                <a href="#details"
+                    class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition text-sm font-bold uppercase tracking-widest">
+                    Book Your Spot
+                </a>
             </div>
         </div>
     </section>
 
-    <section id="sponsors" class="py-24 bg-gray-50 border-t border-gray-200">
+    <section id="social-proof" class="py-16 md:py-24 bg-gray-50">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-extrabold uppercase mb-4 text-primary">Social Proof</h3>
+                <p class="text-gray-600">Stories from the community and the scale you can expect this year.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <p class="text-gray-700 italic mb-4">“The energy was unreal. We walked as a team and finished
+                        together.”</p>
+                    <p class="font-bold text-gray-900">Aarav N.</p>
+                    <p class="text-sm text-gray-500">Corporate Participant</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <p class="text-gray-700 italic mb-4">“Perfect for families. My kids loved the fun walk and the
+                        music.”</p>
+                    <p class="font-bold text-gray-900">Meera S.</p>
+                    <p class="text-sm text-gray-500">Family Walker</p>
+                </div>
+                <div class="bg-white p-6 rounded-2xl shadow-lg">
+                    <p class="text-gray-700 italic mb-4">“It felt great knowing every step helped literacy programs.”
+                    </p>
+                    <p class="font-bold text-gray-900">Rahul K.</p>
+                    <p class="text-sm text-gray-500">10K Challenge Walker</p>
+                </div>
+            </div>
+
+            <div class="bg-white border border-primary/20 rounded-2xl p-8 text-center shadow-md">
+                <p class="text-2xl md:text-3xl font-extrabold text-gray-900">2000+ walkers expected</p>
+                <p class="text-gray-600 mt-2">Secure your place before slots fill up.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="sponsors" class="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
         <div class="max-w-5xl mx-auto px-4 text-center">
             <h3 class="text-5xl font-extrabold uppercase italic text-primary tracking-tight mb-16 text-center">Sponsors
                 & Partners</h3>
@@ -592,53 +692,39 @@
 
 
 
-    <section class="py-24 bg-white">
+    <section class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-16">
-                <h3 class="text-4xl font-extrabold uppercase mb-4">Why Join Us? </h3>
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-extrabold uppercase mb-4">Why Join Us</h3>
                 <div class="w-20 h-1 bg-primary mx-auto"></div>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center group">
-                    <div
-                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
-                        <i class="fa-solid fa-music text-2xl"></i>
-                    </div>
-                    <h5 class="font-bold mb-2">Live Entertainment</h5>
-                    <p class="text-sm text-gray-500">Live DJ and Red FM RJs on-site to keep the energy high!
-                    </p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div>
+                    <h4 class="text-2xl font-bold uppercase mb-4">Cause & Impact</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>10% of every ticket supports U&I
+                            literacy programs.</li>
+                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>₹500 added per finisher to expand
+                            reading access.</li>
+                    </ul>
                 </div>
-                <div class="text-center group">
-                    <div
-                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
-                        <i class="fa-solid fa-shirt text-2xl"></i>
-                    </div>
-                    <h5 class="font-bold mb-2">Exclusive Kit</h5>
-                    <p class="text-sm text-gray-500">Event T-shirt, Finisher Medal, and Timed Bib included.
-                    </p>
-                </div>
-                <div class="text-center group">
-                    <div
-                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
-                        <i class="fa-solid fa-users text-2xl"></i>
-                    </div>
-                    <h5 class="font-bold mb-2">Network</h5>
-                    <p class="text-sm text-gray-500">Walk alongside leaders, athletes, and change-makers. </p>
-                </div>
-                <div class="text-center group">
-                    <div
-                        class="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary group-hover:text-white transition">
-                        <i class="fa-solid fa-hand-holding-heart text-2xl"></i>
-                    </div>
-                    <h5 class="font-bold mb-2">Community</h5>
-                    <p class="text-sm text-gray-500">Directly contribute to underserved children's futures. [cite: 24]
-                    </p>
+                <div>
+                    <h4 class="text-2xl font-bold uppercase mb-4">Event Experience</h4>
+                    <ul class="space-y-3 text-gray-700">
+                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Live DJ and Red FM RJs to keep the
+                            energy high.</li>
+                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Event T-shirt, finisher medal, and
+                            timed bib included.</li>
+                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Meet corporates, families, and
+                            fitness enthusiasts.</li>
+                    </ul>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="details" class="py-24 bg-gray-50">
+    <section id="details" class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
 
             <!-- Event Logistics -->
@@ -652,9 +738,10 @@
                         <i class="fa-solid fa-location-dot text-primary mt-1 mr-4 text-xl"></i>
                         <div>
                             <span class="block font-bold">Venue</span>
-                            <p class="text-gray-600">St. Joseph College Ground, Bangalore</p>
+                            <p class="text-gray-600">St. Joseph’s Indian Institute Grounds, Bengaluru</p>
 
-                            <a href="https://maps.google.com/?q=St+Joseph+College+Ground+Bangalore" target="_blank"
+                            <a href="https://maps.google.com/?q=St+Joseph%E2%80%99s+Indian+Institute+Grounds+Bengaluru"
+                                target="_blank"
                                 class="text-primary text-xs font-bold hover:underline">
                                 OPEN IN GOOGLE MAPS
                             </a>
@@ -688,7 +775,7 @@
                 <!-- Google Map -->
                 <div class="bg-white rounded-2xl shadow-lg overflow-hidden">
                     <iframe
-                        src="https://maps.google.com/maps?q=St%20Joseph%20College%20Ground%20Bangalore&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                        src="https://maps.google.com/maps?q=St%20Joseph%E2%80%99s%20Indian%20Institute%20Grounds%20Bengaluru&t=&z=15&ie=UTF8&iwloc=&output=embed"
                         class="w-full h-[320px] border-0" loading="lazy"></iframe>
                 </div>
 
@@ -699,18 +786,67 @@
                     </h3>
 
                     <p class="text-gray-600 mb-8">
-                        Registration is now open on all major ticketing platforms. Secure your
-                        spot and join the global o9 family.
+                        Registration is now open. Secure your spot early before slots fill up.
                     </p>
 
-                    <a href="#"
+                    <a href="#details"
                         class="block bg-primary hover:bg-secondary text-white text-center py-4 rounded-full font-bold shadow-xl transition uppercase tracking-widest">
-                        Register Now
+                        Join the Walk
                     </a>
                 </div>
 
             </div>
 
+        </div>
+    </section>
+
+    <section id="faqs" class="py-16 md:py-24 bg-white">
+        <div class="max-w-5xl mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl font-extrabold uppercase mb-4">FAQs</h3>
+                <div class="w-20 h-1 bg-primary mx-auto"></div>
+            </div>
+
+            <div class="space-y-4">
+                <details class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <summary class="font-bold cursor-pointer">Is there an age limit?</summary>
+                    <p class="text-gray-600 mt-2">All ages are welcome. Minors should be accompanied by a guardian.</p>
+                </details>
+                <details class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <summary class="font-bold cursor-pointer">Is it timed?</summary>
+                    <p class="text-gray-600 mt-2">The 6K and 9K categories are timed. The 3K is a fun, untimed walk.</p>
+                </details>
+                <details class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <summary class="font-bold cursor-pointer">Are pets allowed?</summary>
+                    <p class="text-gray-600 mt-2">Pets are not allowed on the route for safety reasons.</p>
+                </details>
+                <details class="bg-gray-50 border border-gray-200 rounded-xl p-5">
+                    <summary class="font-bold cursor-pointer">Is parking available?</summary>
+                    <p class="text-gray-600 mt-2">Limited parking will be available near the venue. Carpooling is
+                        encouraged.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="py-16 md:py-20 bg-dark text-white">
+        <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
+            <div>
+                <h3 class="text-3xl font-extrabold uppercase text-primary mb-4">Contact</h3>
+                <p class="text-gray-300">Questions or partnerships? Reach out and we’ll get back fast.</p>
+            </div>
+            <div class="space-y-3 text-gray-300">
+                <p><span class="font-bold text-white">Email:</span> hello@bengaluruwalkathon.com</p>
+                <p><span class="font-bold text-white">Phone:</span> +91 98765 43210</p>
+            </div>
+            <div>
+                <p class="font-bold text-white mb-3">Social Media</p>
+                <div class="flex items-center space-x-4 text-2xl">
+                    <a href="#" class="hover:text-primary"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#" class="hover:text-primary"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-primary"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -744,9 +880,9 @@
                 <img id="modalImage" src="" alt="Route Map" class="max-w-full max-h-[60vh] object-contain shadow-sm">
             </div>
             <div class="mt-8">
-                <a href="#"
+                <a href="#details"
                     class="inline-block bg-primary hover:bg-secondary text-white text-center px-8 py-3 rounded-full font-bold shadow-xl transition uppercase tracking-widest text-sm">
-                    Register For This Category
+                    Register Now
                 </a>
             </div>
         </div>

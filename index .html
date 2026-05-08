@@ -228,6 +228,124 @@
         .close-modal:hover {
             background-color: #f3f4f6;
         }
+
+        /* ── Ticker / Scroller ── */
+        .ticker-bar {
+            background: linear-gradient(90deg, #b30062, #e6007e, #b30062);
+            overflow: hidden;
+            padding: 11px 0;
+            border-top: 1px solid rgba(255,255,255,0.12);
+        }
+        .ticker-track {
+            display: flex;
+            width: max-content;
+            animation: scroll-ticker 42s linear infinite;
+        }
+        .ticker-track:hover { animation-play-state: paused; }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0 2.5rem;
+            color: white;
+            font-weight: 600;
+            font-size: 0.84rem;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+        }
+        .ticker-sep { opacity: 0.45; margin: 0 0.4rem; }
+        @keyframes scroll-ticker {
+            from { transform: translateX(0); }
+            to   { transform: translateX(-50%); }
+        }
+        @media (max-width: 640px) {
+            .ticker-item { font-size: 0.76rem; gap: 0.4rem; padding: 0 1.5rem; }
+        }
+
+        /* ── Bib Collection Popup ── */
+        .bib-popup {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 150;
+            padding: 1rem;
+            transform: translateY(120%);
+            transition: transform 0.55s cubic-bezier(0.25, 1, 0.5, 1);
+            pointer-events: none;
+        }
+        .bib-popup.active {
+            transform: translateY(0);
+            pointer-events: all;
+        }
+        .bib-popup-inner {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #111827;
+            border: 1px solid rgba(230,0,126,0.35);
+            border-radius: 1rem;
+            overflow: hidden;
+            box-shadow: 0 -6px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(230,0,126,0.08);
+        }
+        .bib-popup-head {
+            background: #e6007e;
+            padding: 0.75rem 1.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+        .bib-popup-body { padding: 1.2rem 1.5rem 1.5rem; }
+        .bib-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            padding: 0.42rem 0;
+            color: #d1d5db;
+            font-size: 0.875rem;
+            line-height: 1.5;
+        }
+        .bib-row i {
+            color: #e6007e;
+            margin-top: 3px;
+            flex-shrink: 0;
+            width: 15px;
+            text-align: center;
+        }
+        .bib-o9-note {
+            margin-top: 0.9rem;
+            padding: 0.75rem 1rem;
+            background: rgba(230,0,126,0.13);
+            border-left: 3px solid #e6007e;
+            border-radius: 0.5rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.65rem;
+            color: #fbcfe8;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        .bib-o9-note i { color: #e6007e; margin-top: 2px; flex-shrink: 0; }
+        .bib-close-btn {
+            background: rgba(255,255,255,0.2);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: background 0.2s;
+        }
+        .bib-close-btn:hover { background: rgba(255,255,255,0.38); }
+        @media (max-width: 640px) {
+            .bib-popup-body { padding: 1rem 1.1rem 1.2rem; }
+            .bib-popup-head { padding: 0.65rem 1rem; }
+        }
     </style>
 </head>
 
@@ -250,64 +368,84 @@
                     <a href="#faqs" class="hover:text-primary transition">FAQs</a>
                     <a href="#contact" class="hover:text-primary transition">Contact</a>
                 </div>
-                <a href="#details"
+                <a href="javascript:void(0)" data-open-booking
                     class="bg-primary hover:bg-secondary text-white px-5 py-2 md:px-8 md:py-3 rounded-full shadow-lg transition text-xs sm:text-sm font-bold uppercase whitespace-nowrap">Register
                     Now</a>
             </div>
         </div>
     </nav>
 
-    <header class="relative min-h-screen pt-24 pb-16 flex items-center justify-center overflow-hidden">
-      <picture>
-  <source media="(max-width: 768px)" srcset="./assets/hero.png">
-  <img src="./assets/hero1.png" class="absolute inset-0 w-full h-full object-cover">
-</picture>
-        <!-- Overlay to ensure text readability -->
-        <div class="absolute inset-0 bg-black/40 z-10"></div>
+   <header class="relative min-h-screen pt-24 pb-16 flex flex-col justify-center overflow-hidden">
 
-        <div class="relative z-20 text-center text-white px-4">
-            <h2 class="text-primary font-bold tracking-[0.3em] uppercase mb-3 drop-shadow-md">o9 | Red FM presents</h2>
-            <h1 class="text-5xl md:text-7xl font-black uppercase leading-tight mb-4 drop-shadow-xl"
-                style="letter-spacing: -1px;">Bengaluru Walkathon 2026</h1>
-            <p class="text-xl md:text-2xl font-semibold mb-6 max-w-4xl mx-auto drop-shadow-md">
-                Walk for Health & Literacy | 3K • 5K • 10K
-            </p>
+    <!-- Background Image -->
+    <picture>
+        <source media="(max-width: 768px)" srcset="./assets/hero.png">
+        <img src="./assets/hero1.png" class="absolute inset-0 w-full h-full object-cover">
+    </picture>
 
-            <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
-               
-                  
-                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
-                    <i class="fa-solid fa-location-dot text-primary text-xl mt-1"></i>
-                    <div>
-                        <span class="block text-xs uppercase tracking-widest text-white/70">Where</span>
-                        <span class="font-semibold">St. Joseph’s Indian Institute Grounds</span>
-                    </div>
-                </li>
-                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
-                    <i class="fa-solid fa-calendar-days text-primary text-xl mt-1"></i>
-                    <div>
-                        <span class="block text-xs uppercase tracking-widest text-white/70">When</span>
-                        <span class="font-semibold">10 May 2026 • 6:00 AM</span>
-                    </div>
-                </li>
-                <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
-                    <i class="fa-solid fa-hand-holding-heart text-primary text-xl mt-1"></i>
-                    <div>
-                        <span class="block text-xs uppercase tracking-widest text-white/70">Why</span>
-                        <span class="font-semibold">Every finisher adds ₹500 to literacy</span>
-                    </div>
-                </li>
-            </ul>
+    <!-- Overlay -->
+    <div class="absolute inset-0 bg-black/40 z-10"></div>
 
-            <div class="mt-8">
-                <a href="#details"
-                    class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition text-sm font-bold uppercase tracking-widest">
-                    Join the Movement
-                </a>
-            </div>
+    <!-- TOP TEXT (moves up ONLY on mobile) -->
+    <div class="absolute top-20 left-0 w-full z-20 text-center text-white px-4 md:static md:mt-0 mt-4">
+        <h2 class="font-bold tracking-[0.3em] uppercase mb-3 drop-shadow-md">
+            o9 | Red FM presents
+        </h2>
+
+        <h1 class="text-3xl md:text-5xl font-black uppercase leading-tight mb-4 drop-shadow-xl"
+            style="letter-spacing: -1px;">
+            Bengaluru Walkathon 2026
+        </h1>
+
+       
+    </div>
+
+    <!-- BOTTOM CONTENT (stays centered) -->
+    <div class="relative z-20 text-center text-white px-4 mt-64 md:mt-10"> 
+
+         <p class="text-xl md:text-2xl font-semibold max-w-4xl mx-auto drop-shadow-md">
+            Walk for Health & Literacy | 3K • 5K • 10K
+        </p>
+
+        <ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 max-w-4xl mx-auto text-left">
+
+            <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                <i class="fa-solid fa-location-dot text-primary text-xl mt-1"></i>
+                <div>
+                    <span class="block text-xs uppercase tracking-widest text-white/70">Where</span>
+                    <span class="font-semibold">St. Joseph’s Indian Institute Grounds</span>
+                </div>
+            </li>
+
+            <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                <i class="fa-solid fa-calendar-days text-primary text-xl mt-1"></i>
+                <div>
+                    <span class="block text-xs uppercase tracking-widest text-white/70">When</span>
+                    <span class="font-semibold">10 May 2026 • 5:30 AM</span>
+                </div>
+            </li>
+
+            <li class="flex items-start gap-3 bg-white/10 backdrop-blur-md border border-white/20 p-4 rounded-xl">
+                <i class="fa-solid fa-hand-holding-heart text-primary text-xl mt-1"></i>
+                <div>
+                    <span class="block text-xs uppercase tracking-widest text-white/70">Why</span>
+                    <span class="font-semibold">
+                        Every Step Of Yours Supports a Child’s Education
+                    </span>
+                </div>
+            </li>
+
+        </ul>
+
+        <div class="mt-8">
+            <a href="javascript:void(0)" data-open-booking
+                class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition text-sm font-bold uppercase tracking-widest">
+                Join the Movement
+            </a>
         </div>
-    </header>
 
+    </div>
+</header>
     <section id="about" class="py-16 md:py-24 bg-white">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div class="relative">
@@ -332,8 +470,7 @@
                 <ul class="space-y-4 font-semibold text-gray-800">
                     <li><i class="fa-solid fa-check-circle text-primary mr-2"></i> 10% of your ticket goes to U&I
                         literacy programs.</li>
-                    <li><i class="fa-solid fa-check-circle text-primary mr-2"></i> Finish the walk & o9 adds ₹500 to the
-                        mission.</li>
+                    <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>For every finisher, o9 will contribute an additional Rs 500 to the mission.</li>
                 </ul>
             </div>
         </div>
@@ -477,38 +614,21 @@
                 together families, corporates, and fitness enthusiasts.
             </p>
 
-            <ul class="grid grid-cols-1 md:grid-cols-3 gap-6 text-left mb-12">
+            <ul class="grid grid-cols-1 md:grid-cols-1 gap-6 justify-center mb-12">
+                
                 <li class="bg-white/5 border border-white/10 rounded-xl p-6">
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-heart-pulse text-primary text-2xl mt-1"></i>
-                        <div>
-                            <p class="font-bold">10% of every ticket</p>
-                            <p class="text-sm text-gray-400">Supports U&I literacy programs.</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="bg-white/5 border border-white/10 rounded-xl p-6">
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-hand-holding-dollar text-primary text-2xl mt-1"></i>
-                        <div>
-                            <p class="font-bold">₹500 per finisher</p>
-                            <p class="text-sm text-gray-400">o9 contributes more with every completed walk.</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="bg-white/5 border border-white/10 rounded-xl p-6">
-                    <div class="flex items-start gap-3">
-                        <i class="fa-solid fa-people-group text-primary text-2xl mt-1"></i>
-                        <div>
-                            <p class="font-bold">5000+ walkers expected</p>
-                            <p class="text-sm text-gray-400">A citywide movement for health and literacy.</p>
-                        </div>
-                    </div>
-                </li>
+    <div class="flex flex-col items-center text-center gap-3">
+        <i class="fa-solid fa-people-group text-primary text-2xl"></i>
+        <div>
+            <p class="font-bold">5000+ walkers expected</p>
+            <p class="text-gray-300 mt-2">Secure your place before slots fill up.</p>
+        </div>
+    </div>
+</li>
             </ul>
 
             <p class="text-lg text-gray-300 leading-relaxed mb-10">
-                Through our partnership with the <strong>U&I NGO</strong>, we are providing access to <strong>Amira
+                Through our partnership with the <strong>U&I</strong>, we are providing access to <strong>Amira
                     Learning</strong>—an AI-powered reading tutor for underserved children.
             </p>
             <div class="grid md:grid-cols-3 gap-8">
@@ -537,7 +657,7 @@
             <h3 class="text-5xl md:text-6xl font-extrabold mb-4 uppercase italic text-primary tracking-tight">
                 Glimpses</h3>
             <p class="text-xl text-gray-700 mb-12 max-w-3xl">
-Every year, over 5000+ participants come together to celebrate the different hues that form the essence of Bengaluru and the transformative power of walking.
+Every year, over 2500+ participants come together to celebrate the different hues that form the essence of Bengaluru and the transformative power of walking.
 </p>
 
 
@@ -548,7 +668,7 @@ Every year, over 5000+ participants come together to celebrate the different hue
                 </div>
                 <div class="grid grid-cols-1 gap-6">
                     <div class="initiative-card min-h-[220px] md:min-h-[240px]">
-                        <img src="./assets/gallery4.png" alt="Gallery 4" class="w-full h-full object-cover">
+                        <img src="./assets/gallery8.png" alt="Gallery 4" class="w-full h-full object-cover">
                         <div class="initiative-overlay p-6"></div>
                     </div>
                     <div class="initiative-card min-h-[220px] md:min-h-[240px]">
@@ -560,7 +680,7 @@ Every year, over 5000+ participants come together to celebrate the different hue
 
             <div class="mt-12 text-center">
                 <p class="text-gray-700 mb-6">Feel the energy? Bring your crew and be part of the 2026 movement.</p>
-                <a href="#details"
+                <a href="javascript:void(0)" data-open-booking
                     class="inline-block bg-primary hover:bg-secondary text-white px-8 py-3 rounded-full shadow-lg transition text-sm font-bold uppercase tracking-widest">
                     Book Your Spot
                 </a>
@@ -596,10 +716,10 @@ Every year, over 5000+ participants come together to celebrate the different hue
                 </div>
             </div>
 
-            <div class="bg-white border border-primary/20 rounded-2xl p-8 text-center shadow-md">
+            <!-- <div class="bg-white border border-primary/20 rounded-2xl p-8 text-center shadow-md">
                 <p class="text-2xl md:text-3xl font-extrabold text-gray-900">5000+ walkers expected</p>
                 <p class="text-gray-600 mt-2">Secure your place before slots fill up.</p>
-            </div>
+            </div> -->
         </div>
     </section>
 
@@ -615,7 +735,7 @@ Every year, over 5000+ participants come together to celebrate the different hue
                     <img src="assets/09logo.png" alt="Title Sponsor"
                         class="h-24 object-contain filter grayscale hover:grayscale-0 transition duration-300">
                 </div>
-                <p>09 Solutions</p>
+                <p>o9 Solutions</p>
             </div>
 
             <hr class="border-gray-300 mb-12">
@@ -624,109 +744,99 @@ Every year, over 5000+ participants come together to celebrate the different hue
             <div class="mb-12">
                 <h4 class="text-xl font-bold text-gray-800 mb-6">Associate Sponsor</h4>
                 <div class="flex justify-center">
-                    <img src="" alt="Associate Sponsor"
+                    <img src="assets/redfmlogo.png" alt="Associate Sponsor"
                         class="h-16 object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                </div>
+                </div> 
+                <p>Red FM</p>
             </div>
 
             <hr class="border-gray-300 mb-12">
 
             <!-- Partners -->
             <div>
-                <h4 class="text-xl font-bold text-gray-800 mb-10">Partners</h4>
-                <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                    <!-- Partner 1 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Powered By"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Powered By</span>
-                    </div>
-                    <!-- Partner 2 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Sports Goods Partner"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Sports Goods Partner</span>
-                    </div>
-                    <!-- Partner 3 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Hydration Partner"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Hydration Partner</span>
-                    </div>
-                    <!-- Partner 4 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Social Connect Partner"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Social Connect Partner</span>
-                    </div>
-                    <!-- Partner 5 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Print Partner"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Print Partner</span>
-                    </div>
-                    <!-- Partner 6 -->
-                    <div class="flex flex-col items-center">
-                        <div
-                            class="bg-white border text-gray-800 border-gray-200 p-4 rounded-xl w-full flex items-center justify-center aspect-[4/3] mb-4 hover:shadow-lg transition">
-                            <img src="" alt="Radio Partner"
-                                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
-                        </div>
-                        <span class="text-sm font-semibold text-gray-600">Radio Partner</span>
-                    </div>
-                </div>
-            </div>
+    <h4 class="text-xl font-bold text-gray-800 mb-10">Partners</h4>
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+
+    <!-- Health Partner -->
+    <div class="flex flex-col items-center">
+        <div class="bg-white border border-gray-200 p-4 rounded-xl w-full h-40 flex items-center justify-center mb-4 hover:shadow-lg transition">
+            <img src="https://www.vgc.in/assets/2018/08/Logo-482x316.jpg"
+                alt="Health Partner - Sakra Hospital"
+                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+        </div>
+        <span class="text-sm font-semibold text-gray-600 text-center">Health Partner - Sakra Hospital</span>
+    </div>
+
+    <!-- Refreshment Partner -->
+    <div class="flex flex-col items-center">
+        <div class="bg-white border border-gray-200 p-4 rounded-xl w-full h-40 flex items-center justify-center mb-4 hover:shadow-lg transition">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhmhOEhqHwNfUHjj6ILvnougZ-uiMLvDJrfw&s"
+                alt="Refreshment Partner - Aubree"
+                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+        </div>
+        <span class="text-sm font-semibold text-gray-600 text-center">Refreshment Partner - Aubree</span>
+    </div>
+
+    <!-- Sports Partner -->
+    <div class="flex flex-col items-center">
+        <div class="bg-white border border-gray-200 p-4 rounded-xl w-full h-40 flex items-center justify-center mb-4 hover:shadow-lg transition">
+            <img src="https://www.radioclassique.fr/wp-content/thumbnails/uploads/2024/03/decathlon-logo-v2-13-03-2024-tt-width-978-height-383-crop-1-bgcolor-ffffff.jpg"
+                alt="Sports Partner - Decathlon"
+                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+        </div>
+        <span class="text-sm font-semibold text-gray-600 text-center">Sports Partner - Decathlon</span>
+    </div>
+
+    <!-- Supported By -->
+    <div class="flex flex-col items-center">
+        <div class="bg-white border border-gray-200 p-4 rounded-xl w-full h-40 flex items-center justify-center mb-4 hover:shadow-lg transition">
+            <img src="./assets/police.jpeg"
+                alt="Bengaluru Traffic Police"
+                class="max-w-full max-h-full object-contain filter grayscale hover:grayscale-0 transition duration-300">
+        </div>
+        <span class="text-sm font-semibold text-gray-600 text-center">Supported By - Bengaluru Traffic Police</span>
+    </div>
+
+</div>
+</div>
         </div>
     </section>
 
 
 
-    <section class="py-16 md:py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="text-center mb-12">
-                <h3 class="text-4xl font-extrabold uppercase mb-4">Why Join Us</h3>
-                <div class="w-20 h-1 bg-primary mx-auto"></div>
-            </div>
+  <section class="py-16 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4">
+        <div class="text-center mb-12">
+            <h3 class="text-4xl font-extrabold uppercase mb-4">Why Join Us</h3>
+            <div class="w-20 h-1 bg-primary mx-auto"></div>
+        </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div>
-                    <h4 class="text-2xl font-bold uppercase mb-4">Cause & Impact</h4>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>10% of every ticket supports U&I
-                            literacy programs.</li>
-                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>₹500 added per finisher to expand
-                            reading access.</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-2xl font-bold uppercase mb-4">Event Experience</h4>
-                    <ul class="space-y-3 text-gray-700">
-                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Live DJ and Red FM RJs to keep the
-                            energy high.</li>
-                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Event T-shirt, finisher medal, and
-                            timed bib included.</li>
-                        <li><i class="fa-solid fa-check-circle text-primary mr-2"></i>Meet corporates, families, and
-                            fitness enthusiasts.</li>
-                    </ul>
-                </div>
+        <div class="flex justify-center">
+            <div class="max-w-xl text-center">
+                <h4 class="text-2xl font-bold uppercase mb-6">Event Experience</h4>
+
+                <ul class="space-y-4 text-gray-700 text-left">
+                    <li>
+                        <i class="fa-solid fa-check-circle text-primary mr-2"></i>
+                        Red FM RJs to keep the energy high.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle text-primary mr-2"></i>
+                        Event T-shirt, certificate, and timed bib included.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle text-primary mr-2"></i>
+                        Refreshments and ample parking available.
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-check-circle text-primary mr-2"></i>
+                        Meet fitness enthusiasts, corporates & families.
+                    </li>
+                </ul>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
     <section id="details" class="py-16 md:py-24 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -793,7 +903,7 @@ Every year, over 5000+ participants come together to celebrate the different hue
                         Registration is now open. Secure your spot early before slots fill up.
                     </p>
 
-                    <a href="#details"
+                    <a href="javascript:void(0)" data-open-booking
                         class="block bg-primary hover:bg-secondary text-white text-center py-4 rounded-full font-bold shadow-xl transition uppercase tracking-widest">
                         Join the Walk
                     </a>
@@ -835,6 +945,59 @@ Every year, over 5000+ participants come together to celebrate the different hue
         </div>
     </section>
 
+
+
+
+  <!-- Ticker / Scroller -->
+    <div class="ticker-bar" role="marquee" aria-label="Important Event Announcement">
+        <div class="ticker-track">
+            <!-- Segment 1 -->
+            <span class="ticker-item">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                URGENT: BIB COLLECTION IS MANDATORY
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-store"></i>
+                Walkathon Expo — Decathlon Store, Brigade Road
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-calendar-days"></i>
+                8th &amp; 9th May 2026
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-clock"></i>
+                10:00 AM – 8:00 PM
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-building-user"></i>
+                o9'ers: Collect bibs from your campus only
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+            <!-- Segment 2 — duplicate for seamless infinite loop -->
+            <span class="ticker-item">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+                URGENT: BIB COLLECTION IS MANDATORY
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-store"></i>
+                Walkathon Expo — Decathlon Store, Brigade Road
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-calendar-days"></i>
+                8th &amp; 9th May 2026
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-clock"></i>
+                10:00 AM – 8:00 PM
+                <span class="ticker-sep">|</span>
+                <i class="fa-solid fa-building-user"></i>
+                o9'ers: Collect bibs from your campus only
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </span>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
     <section id="contact" class="py-16 md:py-20 bg-dark text-white">
         <div class="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-3 gap-8 items-start">
             <div>
@@ -857,6 +1020,8 @@ Every year, over 5000+ participants come together to celebrate the different hue
     </section>
 
     <footer class="bg-dark text-gray-400 py-12">
+
+   
         <div class="max-w-7xl mx-auto px-4 text-center">
             <div class="flex justify-center items-center space-x-4 mb-6">
                 <img src="./assets/09logo.png" alt="o9 Logo"
@@ -875,6 +1040,44 @@ Every year, over 5000+ participants come together to celebrate the different hue
         </div>
     </footer>
 
+    <!-- Bib Collection Popup -->
+    <div id="bibPopup" class="bib-popup" role="dialog" aria-modal="true" aria-label="Bib Collection Notice">
+        <div class="bib-popup-inner">
+            <div class="bib-popup-head">
+                <div style="display:flex;align-items:center;gap:0.75rem;min-width:0;">
+                    <i class="fa-solid fa-triangle-exclamation text-white text-lg" style="animation:pulse 1.5s ease-in-out infinite;flex-shrink:0;"></i>
+                    <span style="color:white;font-weight:700;font-size:0.875rem;text-transform:uppercase;letter-spacing:0.04em;line-height:1.3;">
+                        Urgent Attention: Bib Collection Mandatory
+                    </span>
+                </div>
+                <button class="bib-close-btn" onclick="closeBibPopup()" aria-label="Dismiss notice">
+                    <i class="fa-solid fa-xmark"></i>
+                </button>
+            </div>
+            <div class="bib-popup-body">
+                <p style="color:white;font-weight:600;margin-bottom:0.75rem;font-size:0.9rem;">
+                    All participants are requested to collect their bibs from the Walkathon Expo:
+                </p>
+                <div class="bib-row">
+                    <i class="fa-solid fa-store"></i>
+                    <span><strong style="color:white;">Venue:</strong> Decathlon Store, Brigade Road</span>
+                </div>
+                <div class="bib-row">
+                    <i class="fa-solid fa-calendar-days"></i>
+                    <span><strong style="color:white;">Expo Dates:</strong> 8th May &amp; 9th May 2026</span>
+                </div>
+                <div class="bib-row">
+                    <i class="fa-solid fa-clock"></i>
+                    <span><strong style="color:white;">Timing:</strong> 10:00 AM – 8:00 PM</span>
+                </div>
+                <div class="bib-o9-note">
+                    <i class="fa-solid fa-building-user"></i>
+                    <span>o9'ers: Please collect your bibs from your campus only.</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Route Map Modal -->
     <div id="routeModal" class="modal-overlay" onclick="closeModal(event)">
         <div class="modal-content text-center w-full md:w-[80vw] max-w-5xl" onclick="event.stopPropagation()">
@@ -886,7 +1089,7 @@ Every year, over 5000+ participants come together to celebrate the different hue
                 <img id="modalImage" src="" alt="Route Map" class="max-w-full max-h-[60vh] object-contain shadow-sm">
             </div>
             <div class="mt-8">
-                <a href="#details"
+                <a href="javascript:void(0)" data-open-booking
                     class="inline-block bg-primary hover:bg-secondary text-white text-center px-8 py-3 rounded-full font-bold shadow-xl transition uppercase tracking-widest text-sm">
                     Register Now
                 </a>
@@ -894,7 +1097,78 @@ Every year, over 5000+ participants come together to celebrate the different hue
         </div>
     </div>
 
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal-overlay" onclick="closeBookingModal(event)">
+        <div class="modal-content text-center w-full md:w-[70vw] max-w-3xl" onclick="event.stopPropagation()">
+            <button class="close-modal" onclick="closeBookingModal()"><i class="fa-solid fa-xmark"></i></button>
+            <h3 class="text-3xl font-extrabold uppercase italic text-primary tracking-tight mb-2">Choose Your Platform
+            </h3>
+            <p class="text-gray-600 mb-8">Pick a booking partner to complete your registration.</p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <a href="https://in.bookmyshow.com/sports/walkathon-step-forward-give-back/ET00487964"
+                    class="bg-gray-50 border border-gray-200 hover:border-primary rounded-2xl p-5 text-left shadow-sm hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-gray-200">
+                            <img src="https://logo.svgcdn.com/simple-icons/bookmyshow-dark.png" alt="BookMyShow logo"
+                                class="w-8 h-8 object-contain">
+                        </span>
+                        <div class="font-bold text-gray-900">BookMyShow</div>
+                    </div>
+                   
+                </a>
+                <a href="https://www.townscript.com/e/walkathon-step-forward-give-back-124233"
+                    class="bg-gray-50 border border-gray-200 hover:border-primary rounded-2xl p-5 text-left shadow-sm hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-white border border-gray-200">
+                            <img src="https://www.townscript.com/assets/images/ts-logo.svg" alt="Townscript logo"
+                                class="w-9 h-9 object-contain">
+                        </span>
+                        <div class="font-bold text-gray-900">Townscript</div>
+                    </div>
+                  
+                </a>
+                <a href="https://www.indiarunning.com/events/walkathon__step_forward_give_back_43558"
+                    class="bg-gray-50 border border-gray-200 hover:border-primary rounded-2xl p-5 text-left shadow-sm hover:shadow-lg transition">
+                    <div class="flex items-center gap-3 mb-3">
+                        <span
+                            class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gray-900 border border-gray-800">
+                            <img src="https://www.indiarunning.com/icons/ir-logo-transparent-white.svg"
+                                alt="IndiaRunning logo" class="w-9 h-9 object-contain">
+                        </span>
+                        <div class="font-bold text-gray-900">IndiaRunning</div>
+                    </div>
+                  
+                </a>
+            </div>
+        </div>
+    </div>
+
     <script>
+        function openBookingModal() {
+            const overlay = document.getElementById('bookingModal');
+            if (!overlay) return;
+            overlay.style.display = 'flex';
+            setTimeout(() => {
+                overlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }, 10);
+        }
+
+        function closeBookingModal(event) {
+            if (event && event.target !== document.getElementById('bookingModal')) return;
+            const overlay = document.getElementById('bookingModal');
+            overlay.classList.remove('active');
+            document.body.style.overflow = '';
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 300);
+        }
+
+        document.querySelectorAll('[data-open-booking]').forEach((btn) => {
+            btn.addEventListener('click', openBookingModal);
+        });
+
         function openModal(title, imageSrc) {
             document.getElementById('modalTitle').innerText = title + " Route Map";
             document.getElementById('modalImage').src = imageSrc;
@@ -919,6 +1193,23 @@ Every year, over 5000+ participants come together to celebrate the different hue
             setTimeout(() => {
                 overlay.style.display = 'none';
             }, 300);
+        }
+
+        // Bib Collection Popup — shows once per session, 2 s after load
+        (function () {
+            if (!sessionStorage.getItem('bibDismissed')) {
+                setTimeout(function () {
+                    var p = document.getElementById('bibPopup');
+                    if (p) p.classList.add('active');
+                }, 2000);
+            }
+        })();
+
+        function closeBibPopup() {
+            var p = document.getElementById('bibPopup');
+            if (!p) return;
+            p.classList.remove('active');
+            sessionStorage.setItem('bibDismissed', '1');
         }
 
         // Countdown Timer Logic
